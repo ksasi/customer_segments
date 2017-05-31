@@ -12063,7 +12063,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> 1st sample can be a market.2nd can be restaurant and 3rd can be retailer.</p>
+<p><strong>Answer:</strong> 1st sample can be a market.2nd can be restaurant and 3rd can be retailer. In the 1st sample the value of Fresh seems to be near to the mean of the Fresh. In the 2nd sample the value of Frozen seems to be near to that of the mean. In the 3rd sample the value of Grocery seems to be near to that of the mean.</p>
 
 </div>
 </div>
@@ -14817,10 +14817,108 @@ MzMzMzMzs7b8P6YbhZeIVDkmAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> Yes, there seems to be pairs of features which exhibit some degree of correlation, Ex:- Milk and Grocery,Milk and Detergents_Paper,Grocery and Detergents_Paper. This confirms the suspicions about the relevance of the feature attempted to predict. Grocery is the feature that is attempted to predict previously.The data for the features doesn't seem to be normally distributed.Most of the data points seem to be lie in the left side of the mean i.e. left skewed.</p>
+<p><strong>Answer:</strong> Yes, there seems to be pairs of features which exhibit some degree of correlation, Ex:- Milk and Grocery,Milk and Detergents_Paper,Grocery and Detergents_Paper. This confirms the suspicions about the relevance of the feature attempted to predict. Grocery is the feature that is attempted to predict previously.The data for the features doesn't seem to be normally distributed.Most of the data points seem to be lie in the left side of the mean i.e. right skewed.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[53]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fresh</th>
+      <td>1.000000</td>
+      <td>0.100510</td>
+      <td>-0.011854</td>
+      <td>0.345881</td>
+      <td>-0.101953</td>
+      <td>0.244690</td>
+    </tr>
+    <tr>
+      <th>Milk</th>
+      <td>0.100510</td>
+      <td>1.000000</td>
+      <td>0.728335</td>
+      <td>0.123994</td>
+      <td>0.661816</td>
+      <td>0.406368</td>
+    </tr>
+    <tr>
+      <th>Grocery</th>
+      <td>-0.011854</td>
+      <td>0.728335</td>
+      <td>1.000000</td>
+      <td>-0.040193</td>
+      <td>0.924641</td>
+      <td>0.205497</td>
+    </tr>
+    <tr>
+      <th>Frozen</th>
+      <td>0.345881</td>
+      <td>0.123994</td>
+      <td>-0.040193</td>
+      <td>1.000000</td>
+      <td>-0.131525</td>
+      <td>0.390947</td>
+    </tr>
+    <tr>
+      <th>Detergents_Paper</th>
+      <td>-0.101953</td>
+      <td>0.661816</td>
+      <td>0.924641</td>
+      <td>-0.131525</td>
+      <td>1.000000</td>
+      <td>0.069291</td>
+    </tr>
+    <tr>
+      <th>Delicatessen</th>
+      <td>0.244690</td>
+      <td>0.406368</td>
+      <td>0.205497</td>
+      <td>0.390947</td>
+      <td>0.069291</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -21878,7 +21976,7 @@ SJIkSZIkSTWYNJIkSZIkSVINJo0kSZIkSZJUw/8Bc3ExDnXqd9IAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> 0.7131 is the total variance in the data that is explained by the first and second principal component. The first four principal components are explaining a variance of 0.9327. It appears the positive increase in all of the first four dimensions seems to have been majorly contributed by Milk, Grocery and Detergents_Paper features. Please note Milk is slightly negative in the 2nd dimension.</p>
+<p><strong>Answer:</strong> 0.7131 is the total variance in the data that is explained by the first and second principal component. The first four principal components are explaining a variance of 0.9327. For the 1st dimension it appears Milk,Grocery and Frozen seem to correspond with positive increase. This might mean the restaurants are seperated out in 1st dimension. For the 2nd,3rd and 4th dimensions it appears Fresh, Frozen and Delicatessen seem to correspond with positive increase. This might mean Markets are seperated out in the 2nd,3rd and 4th dimensions.</p>
 
 </div>
 </div>
@@ -23879,11 +23977,18 @@ LUgAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">mixture</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">mixture</span><span class="o">.</span><span class="n">GMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">&quot; The silhouette coefficient for &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; clusters is {}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
 <span class="c1"># TODO: Apply your clustering algorithm of choice to the reduced data </span>
 <span class="n">clusterer</span> <span class="o">=</span> <span class="n">mixture</span><span class="o">.</span><span class="n">GMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
 
@@ -23899,7 +24004,7 @@ LUgAAAAASUVORK5CYII=
 <span class="c1"># TODO: Calculate the mean silhouette coefficient for the number of clusters chosen</span>
 <span class="n">score</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s2">&quot; The silhouette coefficient is {}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot; The silhouette coefficient for 2 clusters is {}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -23912,7 +24017,13 @@ LUgAAAAASUVORK5CYII=
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre> The silhouette coefficient is 0.406829532158.
+<pre> The silhouette coefficient for 2 clusters is 0.406829532158.
+ The silhouette coefficient for 3 clusters is 0.397038879789.
+ The silhouette coefficient for 4 clusters is 0.256719059623.
+ The silhouette coefficient for 5 clusters is 0.229976103629.
+ The silhouette coefficient for 6 clusters is 0.294424654401.
+ The silhouette coefficient for 7 clusters is 0.30522831814.
+ The silhouette coefficient for 2 clusters is 0.406829532158.
 </pre>
 </div>
 </div>
@@ -25230,7 +25341,7 @@ SZIkKWcMhCRJkiRJknLGQEiSJEmSJCln/j/QXozt2WgPJgAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> Segment0 may represent Retailer and Segment1 may represent Market</p>
+<p><strong>Answer:</strong> Segment0 may represent Retailer, it appears the value of Frozen seems to be near to that of the mean of the Frozen. Segment1 may represent Market, it appears the value of Grocery seems to be near to that of the mean of the Grocery.</p>
 
 </div>
 </div>
@@ -25282,7 +25393,7 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> Point 0 and Point 1 seem to be related to Segment1 (Market) and Point 2 seem to be related to Segment1(Retailer). The predictions seem to be consistent with this.</p>
+<p><strong>Answer:</strong>  The predictions seem to be consistent with this. For Point 0 and Point 1, Fresh,Milk,Grocery values seems to be near to Segement 1. Hence Point 0 and Point 1 seems to be related to Segment1 (Market). Similarly, For Point 2, Fresh,Milk,Grocery and Frozen values seems to be near to Segement 0 and hence Point 2 seem to be related to Segment1(Retailer). It appears this seems to be in agreement with the output of the code execute above. The point 0 and Point 2 seems to be in agreement with the deduction made in question 1 by using statistical means of the features i.e point 0(1st sample) can be market and point 2(3rd sample) can be retailer.</p>
 
 </div>
 </div>
@@ -25322,7 +25433,7 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> We cannot assume the change affects all customer equally. Based on the variance information in PCA we can estimate which group of customers will be affected the most.</p>
+<p><strong>Answer:</strong> We cannot assume the change affects all customer equally. Based on the variance information in PCA we can estimate which group of customers will be affected the most. A change in delivery services might impact customers in cluster 0 as they may get their features in the dimension 1 to get impacted negatively.</p>
 
 </div>
 </div>
@@ -26560,7 +26671,7 @@ YBRCAAAAAANGIQQAAAAwYBRCAAAAAANGIQQAAAAwYP5/Yw0967RioMgAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> It appears the number of clusters here were 2 and this seems to be in good agreement to this underlying distribution of Hotel/Restaurant/Cafe customers to Retailer customers. Yes there are customer segments that would be classified as purely 'Retailers' or 'Hotels/Restaurants/Cafes' by this distribution. These classifications seem to be consistent with the previous definition of the customer segments.</p>
+<p><strong>Answer:</strong> It appears the number of clusters here were 2 and this seems to be in good agreement to this underlying distribution of Hotel/Restaurant/Cafe customers to Retailer customers. No, there will not be customer segments that would be classified as purely 'Retailers' or 'Hotels/Restaurants/Cafes' by this distribution as there are certain points which got leaked into 'Hotels/Restaurants/Cafes' cluster. These classifications seem to be consistent with the previous definition of the customer segments.</p>
 
 </div>
 </div>
