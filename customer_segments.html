@@ -20647,10 +20647,12 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># For each feature find the data points with extreme high or low values</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">outliers_index</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># For each feature find the data points with extreme high or low values</span>
 <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">log_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
     
     <span class="c1"># TODO: Calculate Q1 (25th percentile of the data) for the given feature</span>
@@ -20664,10 +20666,14 @@ Once you have performed this implementation, the dataset will be stored in the v
     
     <span class="c1"># Display the outliers</span>
     <span class="k">print</span> <span class="s2">&quot;Data points considered outliers for the feature &#39;{}&#39;:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">outliers_temp</span> <span class="o">=</span> <span class="n">log_data</span><span class="p">[</span><span class="o">~</span><span class="p">((</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="n">step</span><span class="p">))]</span>
     <span class="n">display</span><span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="o">~</span><span class="p">((</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="n">step</span><span class="p">))])</span>
+    <span class="n">outliers_index</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">outliers_temp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+
     
 <span class="c1"># OPTIONAL: Select the indices for data points you wish to remove</span>
-<span class="n">outliers</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span><span class="mi">154</span><span class="p">]</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">outliers_index</span><span class="p">)</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">outliers</span>
 
 <span class="c1"># Remove the outliers, if any were specified</span>
 <span class="n">good_data</span> <span class="o">=</span> <span class="n">log_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">log_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">outliers</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
@@ -21299,6 +21305,13 @@ Once you have performed this implementation, the dataset will be stored in the v
 
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[128, 154, 65, 66, 75]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -21318,7 +21331,7 @@ Once you have performed this implementation, the dataset will be stored in the v
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> Data points with indexes 75,154 are considered outliers for more than one feature. These data points were removed from the dataset. These were added to the outliers list to be removed as these are common outliers for correlated features.</p>
+<p><strong>Answer:</strong> Data points with indexes 128, 154, 65, 66, 75 are considered outliers for more than one feature. These data points were removed from the dataset. These were added to the outliers list to be removed as these are common outliers for more than one feature. The presence of the outliers can cause the centroids to shift in the clustering algorithm and thus the clusters may not be as representative as they otherwise should be. In this case we are removing outliers which is a small subset as these are outliers for more than one feature.</p>
 
 </div>
 </div>
@@ -21976,7 +21989,7 @@ SJIkSZIkSTWYNJIkSZIkSVINJo0kSZIkSZJUw/8Bc3ExDnXqd9IAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> 0.7131 is the total variance in the data that is explained by the first and second principal component. The first four principal components are explaining a variance of 0.9327. For the 1st dimension it appears Milk,Grocery and Frozen seem to correspond with positive increase. This might mean the restaurants are seperated out in 1st dimension. For the 2nd,3rd and 4th dimensions it appears Fresh, Frozen and Delicatessen seem to correspond with positive increase. This might mean Markets are seperated out in the 2nd,3rd and 4th dimensions.</p>
+<p><strong>Answer:</strong> 0.7131 is the total variance in the data that is explained by the first and second principal component. The first four principal components are explaining a variance of 0.9327. For the 1st dimension it appears Milk,Grocery and Frozen seem to correspond with positive increase. This might mean the restaurants are seperated out in 1st dimension. For the 2nd dimension it appears Fresh, Frozen and Delicatessen seem to correspond with positive increase. This might mean Markets are seperated out in the 2nd dimension. For the 3rd dimension it appears Fresh, Detergents_Paper seem to correspond to positive increase and Frozen,Delicatessen seem to correspond to negative increase.For the 4th dimension it appears Frozen,Detergents_Paper seem to correspond to positive increase and Fresh,Delicatessen seem to correspond to negative increase.</p>
 
 </div>
 </div>
@@ -25433,7 +25446,7 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> We cannot assume the change affects all customer equally. Based on the variance information in PCA we can estimate which group of customers will be affected the most. A change in delivery services might impact customers in cluster 0 as they may get their features in the dimension 1 to get impacted negatively.</p>
+<p><strong>Answer:</strong> We cannot assume the change affects all customer equally. Based on the variance information in PCA we can estimate which group of customers will be affected the most. A change in delivery services might impact customers in cluster 0 as they may get their features in the dimension 1 to get impacted negatively.A/B test can be run by taking samples from the cluster 0 and constructing the control group in the same manner. In the same way A/B test can be run by taking samples from the cluster 1 and constructing the control group in the same manner. Based on the results of these 2 A/B tests we can determine which customers would react positively to the change in delivery service.</p>
 
 </div>
 </div>
